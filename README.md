@@ -268,7 +268,7 @@ https://api-challenge.blockchain.ki/txs/B026833BFDA36EE24A528424EEB4A6D9B7A4775F
 https://api-challenge.blockchain.ki/txs/153E00DD6C0473F50EEE77DCAE4B3873F0B4B78BEBFC20C74C83C652C8ABA921
 
 
-##Note:
+## Note:
 Unfortunately, due to that Rizon has ofcialy stopped its testnet I cannot maintain the relayer in the work stage, it produces error:
 ```root@vmi640891:~/relayer/configs# rly start ibc
 I[2021-09-08|07:43:43.952] - listening to tx events from kichain-t-4...
