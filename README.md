@@ -1,25 +1,23 @@
 # Ki-Chain_IBC
-IBC Relayer guide
+### IBC Relayer guide
 
-1. Installation relayer.
+## 1. Installation relayer.
 
 Be sure that Go is installed, if not, you can use this article:
 
 https://golang.org/doc/install 
 
-<div class="notranslate">
 ```
 # go version
 go version go1.16.5 linux/amd64
 ```
-</div>
-Install the latest release via GitHub as follows:
+# Install the latest release via GitHub as follows:
 ```
 $ git clone git@github.com:cosmos/relayer.git 
 $ git checkout v0.9.3 
 $ cd relayer && make install
 ```
-2. Chek version:
+## 2. Chek version:
 ```
 # rly version
 version: 0.9.3
@@ -29,7 +27,7 @@ go: go1.16.5 linux/amd64
 ```
 
 
-3. Prepare our nodes to accept incoming connections on the public IP, we should bit adjust our config.toml files for both nodes, in my case, it was Rizon and Kichain:
+## 3. Prepare our nodes to accept incoming connections on the public IP, we should bit adjust our config.toml files for both nodes, in my case, it was Rizon and Kichain:
 ```
 #laddr = "tcp://127.0.0.1:27657"
 laddr = "tcp://161.X.X.122:27657"
@@ -46,7 +44,7 @@ then restart nodes and check that these ports are opened and accept the connecti
 
 if so, it`s well and we can be ready for relayer configuration,
 
-4. Configuration Relayer:
+## 4. Configuration Relayer:
 
 -let`s initializate it:
 ```
@@ -201,9 +199,9 @@ I[2021-09-07|17:10:24.144] • [groot-011]@{429821} - actions(0:withdraw_delegat
 ```
 
 
-5. Time for transactions, we can do it via relayer, from Rizon side and Kichain side, let`s try all variants:
+## 5. Time for transactions, we can do it via relayer, from Rizon side and Kichain side, let`s try all variants:
 
-Relayer:
+# Relayer:
 ```
 root@vmi640891:~/relayer/configs# rly tx transfer groot-011 kichain-t-4 1000000uatolo tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49
 I[2021-09-07|18:26:44.488] ✔ [groot-011]@{430480} - msg(0:transfer) hash(58B0ABA435E7E89258E62B92F1148B1F6A1CD5C0A5B8CCDA672DC5C13C619A70)
@@ -227,7 +225,7 @@ https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA
 
 
 
-Rizon end:
+# Rizon end:
 ```
 # rizond tx ibc-transfer transfer transfer channel-12 tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 500000uatolo --from rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v --chain-id=groot-011 --fees="25uatolo" --gas=auto --node "http://161.97.132.122:27657"
 Enter keyring passphrase:
@@ -254,7 +252,7 @@ https://dev.mintscan.io/rizon/txs/0895EA74172586C9173C6D9F183D3A729C252E0461041B
 
 
 
-Ki-Chain end:
+## Ki-Chain end:
 ```
 # kid tx ibc-transfer transfer transfer channel-44 rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v 50000utki --from tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 --fees=5000utki --gas=auto --chain-id kichain-t-4 --home ./kid --node "http://161.97.132.122:26657"
 Enter keyring passphrase:
