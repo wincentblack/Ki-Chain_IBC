@@ -268,3 +268,24 @@ https://api-challenge.blockchain.ki/txs/B026833BFDA36EE24A528424EEB4A6D9B7A4775F
 https://api-challenge.blockchain.ki/txs/153E00DD6C0473F50EEE77DCAE4B3873F0B4B78BEBFC20C74C83C652C8ABA921
 
 
+##Note:
+Unfortunately, due to that Rizon has ofcialy stopped its testnet I cannot maintain the relayer in the work stage, it produces error:
+```root@vmi640891:~/relayer/configs# rly start ibc
+I[2021-09-08|07:43:43.952] - listening to tx events from kichain-t-4...
+I[2021-09-08|07:43:43.954] - listening to block events from kichain-t-4...
+I[2021-09-08|07:43:43.957] - listening to tx events from groot-011...
+I[2021-09-08|07:43:43.957] - listening to block events from groot-011...
+I[2021-09-08|07:43:44.134] - No packets to relay between [kichain-t-4]port{transfer} and [groot-011]port{transfer}
+Error: rpc error: code = Unknown desc = internal
+```
+```
+root@vmi640891:~# rizond status -n tcp://161.x.x.122:27657
+{"NodeInfo":{"protocol_version":{"p2p":"8","block":"11","app":"0"},"id":"87e895259c75ff3901cd6a3bf715ac8da7121756","listen_addr":"tcp://161.x.x.122:27656","network":"groot-011","version":"v0.34.10","channels":"40202122233038606100","moniker":"masteritzp1","other":{"tx_index":"on","rpc_address":"tcp://161.x.x.122:27657"}},"SyncInfo":{"latest_block_hash":"A8425D8312F5019142791A7349E1780504F7D27AEA96B460A6B4B187FD77D062","latest_app_hash":"816F46F7EF4AB2BE0DCC0B023CE0AFB7DF4A9FEE58AE31E79E175D01E7EC2180","latest_block_height":"438129","latest_block_time":"2021-09-08T07:38:13.636882617Z","earliest_block_hash":"72930EEE0D465B1ACE2F4466A638C106C5E06F8479679E708A3196457F1C951A","earliest_app_hash":"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855","earliest_block_height":"1","earliest_block_time":"2021-08-06T08:00:00Z","catching_up":false},"ValidatorInfo":{"Address":"4136995C1911297E40D7EC2A2FC0458DE63CA06C","PubKey":{"type":"tendermint/PubKeyEd25519","value":"Hb6QJvnj6L3UMFKMX8vgsZQy5x4ByjlBFxMPFIhF3o4="},"VotingPower":"6904"}}
+root@vmi640891:~#
+```
+as you see latets block haigh fir node is "latest_block_height":"438129" but testnet is already stopped here: Height 436,471
+https://dev.mintscan.io/rizon/validators 
+https://discord.com/channels/846214372874256394/846217951157157888/884701066971742229 
+I hope this will not be issued, anyway all my posted transactions here were successful
+
+
