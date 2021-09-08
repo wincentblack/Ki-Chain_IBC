@@ -286,6 +286,8 @@ root@vmi640891:~#
 as you see latets block haigh fir node is "latest_block_height":"438129" but testnet is already stopped here: Height 436,471
 https://dev.mintscan.io/rizon/validators 
 https://discord.com/channels/846214372874256394/846217951157157888/884701066971742229 
-I hope this will not be issued, anyway all my posted transactions here were successful
+I hope this will not be an issue, anyway all my posted transactions here were successful
+
+Thanks!
 
 
