@@ -1,5 +1,4 @@
-# Ki-Chain_IBC
-### IBC Relayer guide
+### Ki-Chain_IBC Relayer guide
 
 ## 1. Installation relayer.
 
@@ -11,7 +10,7 @@ https://golang.org/doc/install 
 # go version
 go version go1.16.5 linux/amd64
 ```
-# Install the latest release via GitHub as follows:
+Install the latest release via GitHub as follows:
 ```
 $ git clone git@github.com:cosmos/relayer.git 
 $ git checkout v0.9.3 
