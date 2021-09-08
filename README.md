@@ -217,9 +217,6 @@ root@vmi640891:~/relayer/configs#
 I[2021-09-07|18:31:59.042] ✔ [kichain-t-4]@{233589} - msg(0:transfer) hash(56A931E5D9F5E611699DA3790116FA097C7A09CA47C7FC61CCE592D57003F292)
 root@vmi640891:~/relayer/configs#
 ```
-HASHs: https://dev.mintscan.io/rizon/txs/58B0ABA435E7E89258E62B92F1148B1F6A1CD5C0A5B8CCDA672DC5C13C619A70 
-
-https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA47C7FC61CCE592D57003F292 
 
 
 
@@ -246,10 +243,6 @@ tx: null
 txhash: 0895EA74172586C9173C6D9F183D3A729C252E0461041B666AE2F4EA22DB3085
 rizon#
 ```
-https://dev.mintscan.io/rizon/txs/0895EA74172586C9173C6D9F183D3A729C252E0461041B666AE2F4EA22DB3085 
-
-
-
 
 #Ki-Chain end:
 ```
@@ -262,5 +255,12 @@ confirm transaction before signing and broadcasting [y/N]: y
 {"height":"234349","txhash":"B026833BFDA36EE24A528424EEB4A6D9B7A4775F602C16F2AE072323714559F7","codespace":"","code":0,"data":"0A0A0A087472616E73666572","raw_log":"[{\"events\":[{\"type\":\"ibc_transfer\",\"attributes\":[{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"receiver\",\"value\":\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"transfer\"},{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"module\",\"value\":\"ibc_channel\"},{\"key\":\"module\",\"value\":\"transfer\"}]},{\"type\":\"send_packet\",\"attributes\":[{\"key\":\"packet_data\",\"value\":\"{\\\"amount\\\":\\\"50000\\\",\\\"denom\\\":\\\"utki\\\",\\\"receiver\\\":\\\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\\\",\\\"sender\\\":\\\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\\\"}\"},{\"key\":\"packet_timeout_height\",\"value\":\"0-431527\"},{\"key\":\"packet_timeout_timestamp\",\"value\":\"1631032929961276203\"},{\"key\":\"packet_sequence\",\"value\":\"4\"},{\"key\":\"packet_src_port\",\"value\":\"transfer\"},{\"key\":\"packet_src_channel\",\"value\":\"channel-44\"},{\"key\":\"packet_dst_port\",\"value\":\"transfer\"},{\"key\":\"packet_dst_channel\",\"value\":\"channel-12\"},{\"key\":\"packet_channel_ordering\",\"value\":\"ORDER_UNORDERED\"},{\"key\":\"packet_connection\",\"value\":\"connection-1\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"tki1hcea3h0ykw4jqyjhj3tnydsk22s06adhmn0qy3\"},{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"amount\",\"value\":\"50000utki\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"ibc_transfer","attributes":[{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"receiver","value":"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v"}]},{"type":"message","attributes":[{"key":"action","value":"transfer"},{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"module","value":"ibc_channel"},{"key":"module","value":"transfer"}]},{"type":"send_packet","attributes":[{"key":"packet_data","value":"{\"amount\":\"50000\",\"denom\":\"utki\",\"receiver\":\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\",\"sender\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"}"},{"key":"packet_timeout_height","value":"0-431527"},{"key":"packet_timeout_timestamp","value":"1631032929961276203"},{"key":"packet_sequence","value":"4"},{"key":"packet_src_port","value":"transfer"},{"key":"packet_src_channel","value":"channel-44"},{"key":"packet_dst_port","value":"transfer"},{"key":"packet_dst_channel","value":"channel-12"},{"key":"packet_channel_ordering","value":"ORDER_UNORDERED"},{"key":"packet_connection","value":"connection-1"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"tki1hcea3h0ykw4jqyjhj3tnydsk22s06adhmn0qy3"},{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"amount","value":"50000utki"}]}]}],"info":"","gas_wanted":"78098","gas_used":"76574","tx":null,"timestamp":""}
 root@vmi640891:~/kinode#
 ```
+
+# HASH lists: 
+https://dev.mintscan.io/rizon/txs/58B0ABA435E7E89258E62B92F1148B1F6A1CD5C0A5B8CCDA672DC5C13C619A70 
+https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA47C7FC61CCE592D57003F292 
+https://dev.mintscan.io/rizon/txs/0895EA74172586C9173C6D9F183D3A729C252E0461041B666AE2F4EA22DB3085 
 https://api-challenge.blockchain.ki/txs/B026833BFDA36EE24A528424EEB4A6D9B7A4775F602C16F2AE072323714559F7 
+https://api-challenge.blockchain.ki/txs/153E00DD6C0473F50EEE77DCAE4B3873F0B4B78BEBFC20C74C83C652C8ABA921
+
 
