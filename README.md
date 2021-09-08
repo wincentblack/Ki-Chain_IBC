@@ -7,10 +7,12 @@ Be sure that Go is installed, if not, you can use this article:
 
 https://golang.org/doc/install 
 
-```# go version
+<div class="notranslate">
+```
+# go version
 go version go1.16.5 linux/amd64
 ```
-
+</div>
 Install the latest release via GitHub as follows:
 ```
 $ git clone git@github.com:cosmos/relayer.git 
