@@ -18,40 +18,40 @@ $ git checkout v0.9.3
 $ cd relayer && make install
 ```
 2. Chek version:
-
+```
 # rly version
 version: 0.9.3
 commit: 4b81fa59055e3e94520bdfae1debe2fe0b747dc1
 cosmos-sdk: v0.42.4
 go: go1.16.5 linux/amd64
-
+```
 
 
 3. Prepare our nodes to accept incoming connections on the public IP, we should bit adjust our config.toml files for both nodes, in my case, it was Rizon and Kichain:
-
+```
 #laddr = "tcp://127.0.0.1:27657"
 laddr = "tcp://161.X.X.122:27657"
-
+```
 
 
 in the proxy_app, [rpc] and [p2p] section in both config.toml files
 then restart nodes and check that these ports are opened and accept the connection, something like this:
-
+```
 /relayer# ss -o state listening -t4 -p |sort -n |grep -E "kid|riz" |grep -e 657 -e 658
 0 4096 161.x.x.122:26657 0.0.0.0:* users:(("kid",pid=351346,fd=59))
 0 4096 161.x.x.122:27657 0.0.0.0:* users:(("rizond",pid=351281,fd=70))
-
+```
 
 if so, it`s well and we can be ready for relayer configuration,
 
 4. Configuration Relayer:
 
 -let`s initializate it:
-
+```
 rly config init
-
+```
 -create configs for Kicahin and Rizon:
-
+```
 # cd /root/relayer/configs && nano ki_config.json
 
 {
@@ -72,16 +72,16 @@ rly config init
 "gas-prices": "0.025uatolo",
 "trusting-period": "48h"
 }
-
+```
 save files.
 
 -adding our configs to relayer:
-
+```
 rly chains add -f ki_config.json
 rly chains add -f rizon_config.json
-
+```
 -create or recover (import) wallets, in my case I first created new, but then restore from mnemonic my existing wallets that already have balance:
-
+```
 :~/relayer/configs# rly keys add kichain-t-4 kichainz
 {"mnemonic":"coral reason blue toe **** festival wreck present network wisdom **** board","address":"tki1sqxe36gp4eqh2874jkey0a77vryfjp6nd2avvu"}
 :~/relayer/configs# rly keys add groot-011 rizonz
@@ -90,54 +90,51 @@ root@vmi640891:~/relayer/configs#
 
 # rly keys restore groot-011 rizon "slogan *** simple"
 # rly keys restore kichain-t-4 kichain "cluster denial **** warfare answe"
-
+```
 
 -check if wallets were added properly:
-
+```
 :~/relayer# rly keys list kichain-t-4
 key(0): kichain -> tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49
 :~/relayer# rly keys list groot-011
 key(0): rizon -> rizon14yr57scz35jmxrl2pxdfr63fku5q6tzw7xlqqt
 :~/relayer#
-
-
-
-
+```
 
 -Let`s add the relayer chain keys to the specific chain's configuration:
-
+```
 # rly chains edit kichain-t-4 key kichainz
 # rly chains edit groot-011 key rizonz
-
+```
 
 -check balance (it should not be empty):
-
+```
 # rly q balance kichain-t-4
 2000000transfer/channel-44/uatolo,442587utki
 # rly q balance groot-011
 50000transfer/channel-12/utki,7994815uatolo
-
+```
 
 if you don't have anything you should faucet a fund:
 
 http://faucet.rizon.world/ 
 
 -go to initialize the light clients:
-
+```
 # rly light init kichain-t-4 -f
 successfully created light client for kichain-t-4 by trusting endpoint http://161.x.x.122:26657...
 # rly light init groot-011 -f
 successfully created light client for groot-011 by trusting endpoint http://161.x.x.122:27657...
-
+```
 
 -let's create a path across two networks:
-
+```
 rly paths generate kichain-t-4 groot-011 ibcpath --port=transfer
-
+```
 and then add the channel and connections ID, you can create it own or use existing from there:
 
 https://dev.mintscan.io/rizon/relayers 
-
+```
 nano ~/.relayer/config/config.yaml
 # rly paths show ibc --yaml
 path:
@@ -164,27 +161,27 @@ chains: true
 clients: true
 connection: true
 channel: true
-
+```
 
 I used exiting,
 
 -How to create new:
-
+```
 rly tx link transfer
-
+```
 and then check:
-
+```
 rly paths list -d
-
+```
 -start relayer, I used a screen to start it, but if you wish you can create service:
-
+```
 # screen -S relayer
 # screen -r relayer
 # rly start ibcpath
-
+```
 
 if you will see this something like this output, all goes well:
-
+```
 I[2021-09-07|17:10:12.673] - listening to tx events from kichain-t-4...
 I[2021-09-07|17:10:12.673] - listening to block events from kichain-t-4...
 I[2021-09-07|17:10:12.689] - listening to tx events from groot-011...
@@ -199,13 +196,13 @@ I[2021-09-07|17:10:24.143] • [groot-011]@{429821} - actions(0:withdraw_delegat
 I[2021-09-07|17:10:24.144] • [groot-011]@{429821} - actions(0:send) hash(B61AD116E12A468FA1A22EF22ADF3AC8003A183D3556953041D554D23CE2E83B)
 I[2021-09-07|17:10:24.144] • [groot-011]@{429821} - actions(0:delegate) hash(A37ACCC1E0441E0522F4E2B0D2F2DF1DBBF5DCF9E6EBE660926EC54A262C2073)
 I[2021-09-07|17:10:24.144] • [groot-011]@{429821} - actions(0:withdraw_delegator_reward,1:withdraw_validator_commission) hash(59E2793B81BED268D1FDF82910FE41163F53E319F8D03E33DA12923C5988D5CC)
-
+```
 
 
 5. Time for transactions, we can do it via relayer, from Rizon side and Kichain side, let`s try all variants:
 
 Relayer:
-
+```
 root@vmi640891:~/relayer/configs# rly tx transfer groot-011 kichain-t-4 1000000uatolo tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49
 I[2021-09-07|18:26:44.488] ✔ [groot-011]@{430480} - msg(0:transfer) hash(58B0ABA435E7E89258E62B92F1148B1F6A1CD5C0A5B8CCDA672DC5C13C619A70)
 
@@ -220,7 +217,7 @@ root@vmi640891:~/relayer/configs#
 # rly tx transfer kichain-t-4 groot-011 50000utki rizon14yr57scz35jmxrl2pxdfr63fku5q6tzw7xlqqt -d
 I[2021-09-07|18:31:59.042] ✔ [kichain-t-4]@{233589} - msg(0:transfer) hash(56A931E5D9F5E611699DA3790116FA097C7A09CA47C7FC61CCE592D57003F292)
 root@vmi640891:~/relayer/configs#
-
+```
 HASHs: https://dev.mintscan.io/rizon/txs/58B0ABA435E7E89258E62B92F1148B1F6A1CD5C0A5B8CCDA672DC5C13C619A70 
 
 https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA47C7FC61CCE592D57003F292 
@@ -229,7 +226,7 @@ https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA
 
 
 Rizon end:
-
+```
 # rizond tx ibc-transfer transfer transfer channel-12 tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 500000uatolo --from rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v --chain-id=groot-011 --fees="25uatolo" --gas=auto --node "http://161.97.132.122:27657"
 Enter keyring passphrase:
 gas estimate: 78763
@@ -249,13 +246,14 @@ timestamp: ""
 tx: null
 txhash: 0895EA74172586C9173C6D9F183D3A729C252E0461041B666AE2F4EA22DB3085
 rizon#
-
+```
 https://dev.mintscan.io/rizon/txs/0895EA74172586C9173C6D9F183D3A729C252E0461041B666AE2F4EA22DB3085 
 
 
 
 
 Ki-Chain end:
+```
 # kid tx ibc-transfer transfer transfer channel-44 rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v 50000utki --from tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 --fees=5000utki --gas=auto --chain-id kichain-t-4 --home ./kid --node "http://161.97.132.122:26657"
 Enter keyring passphrase:
 gas estimate: 78098
@@ -264,6 +262,6 @@ gas estimate: 78098
 confirm transaction before signing and broadcasting [y/N]: y
 {"height":"234349","txhash":"B026833BFDA36EE24A528424EEB4A6D9B7A4775F602C16F2AE072323714559F7","codespace":"","code":0,"data":"0A0A0A087472616E73666572","raw_log":"[{\"events\":[{\"type\":\"ibc_transfer\",\"attributes\":[{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"receiver\",\"value\":\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"transfer\"},{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"module\",\"value\":\"ibc_channel\"},{\"key\":\"module\",\"value\":\"transfer\"}]},{\"type\":\"send_packet\",\"attributes\":[{\"key\":\"packet_data\",\"value\":\"{\\\"amount\\\":\\\"50000\\\",\\\"denom\\\":\\\"utki\\\",\\\"receiver\\\":\\\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\\\",\\\"sender\\\":\\\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\\\"}\"},{\"key\":\"packet_timeout_height\",\"value\":\"0-431527\"},{\"key\":\"packet_timeout_timestamp\",\"value\":\"1631032929961276203\"},{\"key\":\"packet_sequence\",\"value\":\"4\"},{\"key\":\"packet_src_port\",\"value\":\"transfer\"},{\"key\":\"packet_src_channel\",\"value\":\"channel-44\"},{\"key\":\"packet_dst_port\",\"value\":\"transfer\"},{\"key\":\"packet_dst_channel\",\"value\":\"channel-12\"},{\"key\":\"packet_channel_ordering\",\"value\":\"ORDER_UNORDERED\"},{\"key\":\"packet_connection\",\"value\":\"connection-1\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"tki1hcea3h0ykw4jqyjhj3tnydsk22s06adhmn0qy3\"},{\"key\":\"sender\",\"value\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"},{\"key\":\"amount\",\"value\":\"50000utki\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"ibc_transfer","attributes":[{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"receiver","value":"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v"}]},{"type":"message","attributes":[{"key":"action","value":"transfer"},{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"module","value":"ibc_channel"},{"key":"module","value":"transfer"}]},{"type":"send_packet","attributes":[{"key":"packet_data","value":"{\"amount\":\"50000\",\"denom\":\"utki\",\"receiver\":\"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v\",\"sender\":\"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49\"}"},{"key":"packet_timeout_height","value":"0-431527"},{"key":"packet_timeout_timestamp","value":"1631032929961276203"},{"key":"packet_sequence","value":"4"},{"key":"packet_src_port","value":"transfer"},{"key":"packet_src_channel","value":"channel-44"},{"key":"packet_dst_port","value":"transfer"},{"key":"packet_dst_channel","value":"channel-12"},{"key":"packet_channel_ordering","value":"ORDER_UNORDERED"},{"key":"packet_connection","value":"connection-1"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"tki1hcea3h0ykw4jqyjhj3tnydsk22s06adhmn0qy3"},{"key":"sender","value":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49"},{"key":"amount","value":"50000utki"}]}]}],"info":"","gas_wanted":"78098","gas_used":"76574","tx":null,"timestamp":""}
 root@vmi640891:~/kinode#
-
+```
 https://api-challenge.blockchain.ki/txs/B026833BFDA36EE24A528424EEB4A6D9B7A4775F602C16F2AE072323714559F7 
 
