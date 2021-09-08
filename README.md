@@ -226,7 +226,7 @@ https://api-challenge.blockchain.ki/txs/56A931E5D9F5E611699DA3790116FA097C7A09CA
 
 #Rizon end:
 ```
-# rizond tx ibc-transfer transfer transfer channel-12 tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 500000uatolo --from rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v --chain-id=groot-011 --fees="25uatolo" --gas=auto --node "http://161.97.132.122:27657"
+# rizond tx ibc-transfer transfer transfer channel-12 tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 500000uatolo --from rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v --chain-id=groot-011 --fees="25uatolo" --gas=auto --node "http://161.x.x.122:27657"
 Enter keyring passphrase:
 gas estimate: 78763
 {"body":{"messages":[{"@type":"/ibc.applications.transfer.v1.MsgTransfer","source_port":"transfer","source_channel":"channel-12","token":{"denom":"uatolo","amount":"500000"},"sender":"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v","receiver":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49","timeout_height":{"revision_number":"4","revision_height":"234590"},"timeout_timestamp":"1631032918523567503"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"uatolo","amount":"25"}],"gas_limit":"78763","payer":"","granter":""}},"signatures":[]}
@@ -253,7 +253,7 @@ https://dev.mintscan.io/rizon/txs/0895EA74172586C9173C6D9F183D3A729C252E0461041B
 
 #Ki-Chain end:
 ```
-# kid tx ibc-transfer transfer transfer channel-44 rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v 50000utki --from tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 --fees=5000utki --gas=auto --chain-id kichain-t-4 --home ./kid --node "http://161.97.132.122:26657"
+# kid tx ibc-transfer transfer transfer channel-44 rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v 50000utki --from tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49 --fees=5000utki --gas=auto --chain-id kichain-t-4 --home ./kid --node "http://161.x.x.122:26657"
 Enter keyring passphrase:
 gas estimate: 78098
 {"body":{"messages":[{"@type":"/ibc.applications.transfer.v1.MsgTransfer","source_port":"transfer","source_channel":"channel-44","token":{"denom":"utki","amount":"50000"},"sender":"tki1fgartwdtmjvh0l4tswsmw7cfhq6mc6vx3vrz49","receiver":"rizon1jnkeq3hdgzvp0nyu9urqu9hqxsdye56xd5d49v","timeout_height":{"revision_number":"0","revision_height":"431527"},"timeout_timestamp":"1631032929961276203"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"utki","amount":"5000"}],"gas_limit":"78098","payer":"","granter":""}},"signatures":[]}
